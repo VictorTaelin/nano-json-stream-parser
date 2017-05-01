@@ -25,7 +25,7 @@ const parseNumber = c => bind =>
     ([c,sign]) =>
   // Parses the base digits
   bind(c || Read, c => bind(c === "0"
-    ? "0"
+    ? ["","0"]
     : /[1-9]/.test(c)
       ? parseDigits(c)(bind)
       : error(),
@@ -89,11 +89,18 @@ const parseObject = bind => {
   return go("")(bind);
 }
 
+const parseExact = str => ret => bind => !str
+  ? ret : bind(Read, c => c !== str[0]
+    ? error()
+    : parseExact(str.slice(1))(ret)(bind));
+
 const parseValue = c => bind =>
   bind(readNonWhite(c)(bind), c => 
     c === "[" ? bind(parseArray(bind), v => ["",v]) :
     c === "{" ? bind(parseObject(bind), v => ["",v]) :
     c === '"' ? bind(parseString(bind), v => ["",v]) :
+    c === 't' ? bind(parseExact("rue")(true)(bind), v => ["",v]) :
+    c === 'f' ? bind(parseExact("alse")(false)(bind), v => ["",v]) :
     parseNumber(c)(bind));
 
 const parseStream = parser => {

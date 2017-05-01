@@ -15,3 +15,6 @@ parse('1.70, "y": 2.');
 parse('49, "z": 2e3}}');
 
 parse('[ "aaaa\\"abcd\\u0123\\\\aa\\/aa" ]')
+
+parse('[true,0,false,0')
+parse(',false,0,true]');
