@@ -26,6 +26,8 @@ parse("[::invalid_json_is_ignored::]");
 parse('{"pos": {"x":');
 parse('1.70, "y": 2.');
 parse('49, "z": 2e3}}');
+
+parse('[ "aaaa\\"abcd\\u0123\\\\aa\\/aa" ]')
 ```
 
 Output:
@@ -34,6 +36,7 @@ Output:
 [ 1, 2, 3, 4 ]
 [ 1, 2, 3, 4 ]
 { pos: { x: 1.7, y: 2.49, z: 2000 } }
+[ 'aaaa"abcdģ\\aa/aa' ]
 ```
 
 ## Disclaimer

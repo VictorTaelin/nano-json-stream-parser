@@ -1,4 +1,4 @@
-const njsp = require("./..");
+const njsp = require("./../dist/index.js");
 
 // Callback is called when there is a complete JSON
 const parse = njsp((json) => console.log(json));
@@ -13,3 +13,5 @@ parse('[::invalid_json_is_ignored::]');
 parse('{"pos": {"x":');
 parse('1.70, "y": 2.');
 parse('49, "z": 2e3}}');
+
+parse('[ "aaaa\\"abcd\\u0123\\\\aa\\/aa" ]')

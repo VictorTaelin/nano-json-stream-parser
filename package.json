@@ -1,6 +1,6 @@
 {
   "name": "nano-json-stream-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight, streamed JSON parser in 748 bytes",
   "main": "dist/index.js",
   "scripts": {

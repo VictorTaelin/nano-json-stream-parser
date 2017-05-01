@@ -52,9 +52,9 @@ const parseHex = bind =>
 
 const parseString = bind => 
   bind(bind(Read, c => c !== "\\" ? c :
-    bind(Read, c =>
-      /["\/bfnrt]/.test(c)
-        ? ({b:"\b",f:"\f",n:"\n",r:"\r",t:"\t"})[c]
+    bind(Read, c => 
+      /[\\"\/bfnrt]/.test(c)
+        ? ({b:"\b",f:"\f",n:"\n",r:"\r",t:"\t","\\":"\\","/":"/",'"':''})[c]
         : /u/.test(c)
           ? bind(parseHex(bind), a =>
             bind(parseHex(bind), b =>
@@ -62,7 +62,7 @@ const parseString = bind =>
             bind(parseHex(bind), d =>
               String.fromCharCode(a*4096+b*256+c*16+d)))))
           : error())), c =>
-  c === '"' ? "" : bind(parseString(bind), s => c + s));
+  c === '"' ? "" : bind(parseString(bind), s => (c||'"') + s));
 
 const parseArray = bind => {
   let array = [];
